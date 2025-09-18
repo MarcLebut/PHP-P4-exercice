@@ -59,30 +59,12 @@ function AllOeuvres(): mixed
  * Je retourne le résultat sous forme de tableau associatif, ce qui me permet d'accéder
  * facilement aux informations de l’œuvre (titre, artiste, image, etc.).
  */
-function OeuvreById(int $id): mixed
-{
-    // Je me connecte à ma base de données grâce à la fonction connexion() déjà existante.
+function OeuvreById($id) {
     $cnx = connexion();
-
-    // J’écris ma requête SQL : je veux toutes les colonnes (*) de la table "oeuvres",
-    // mais seulement pour l’œuvre qui possède l’id que je vais fournir.
-    // J’utilise un paramètre nommé (:id) pour sécuriser la requête et éviter les injections SQL.
-    $sql = "SELECT * FROM oeuvres WHERE id = :id";
-
-    // Je prépare ma requête avec prepare(), ce qui me permet de lier ensuite une valeur au paramètre :id.
-    $request = $cnx->prepare($sql);
-
-    // J’exécute la requête en remplaçant :id par la valeur de la variable $id passée en argument.
-    $request->execute([':id' => $id]);
-
-    // Comme je cherche une seule œuvre, j’utilise fetch() (et non fetchAll),
-    // pour récupérer uniquement la première ligne trouvée sous forme de tableau associatif.
-    $result = $request->fetch(PDO::FETCH_ASSOC);
-
-    // Je retourne les informations de l’œuvre.
-    // Si l’id n’existe pas, la fonction retournera "false".
-    return $result;
-};
+    $requete = $cnx->prepare("SELECT * FROM oeuvres WHERE id_oeuvre = ?");
+    $requete->execute([$id]);
+    return $requete->fetch(PDO::FETCH_ASSOC);
+}
 
 // Ajouter Oeuvre : 
 function ajouterOeuvre($titre, $artiste, $image, $description) {
