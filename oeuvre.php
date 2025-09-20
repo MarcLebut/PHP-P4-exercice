@@ -15,9 +15,12 @@ if ($id) {
     // Récupérer les informations de l'oeuvre depuis la base de données
     $oeuvre = OeuvreById($id);
     if (!$oeuvre) {
-        $error = "Produit non trouvé.";
+        header('Location: index.php');
+        exit;
     }
 }
+
+
 
     // Si aucune oeuvre trouvé, on redirige vers la page d'accueil
     if(is_null($oeuvre)) {
