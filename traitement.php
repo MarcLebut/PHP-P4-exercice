@@ -15,15 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = mb_substr(trim(strip_tags($_POST['description'] ?? '')), 0, 3000, 'utf-8');
 
     // Vérifs essentielles (non vide)
-    if ($titre === '' || $artiste === '' || $description === '') {
-        $error = "Veuillez remplir tous les champs obligatoires.";
+    // Vérifications essentielles (non vide et longueur minimale)
+    // Vérifications essentielles (non vide et longueur minimale)
+    if ($titre === '' || $artiste === '' || $description === '' || mb_strlen($description, 'UTF-8') < 3) {
+        $error = "Veuillez remplir tous les champs et saisir une description d'au moins 3 caractères.";
+        
     } else {
         // Image : URL http(s) OU chemin local commençant par '/'
         $isHttp = filter_var($image, FILTER_VALIDATE_URL) && preg_match('~^https?://~i', $image);
         $isLocal = preg_match('~^/[^<>"\']+$~', $image);
 
         if (!$isHttp && !$isLocal) {
-            $error = "L’image doit être une URL http(s) valide ou un chemin local commençant par '/'.";
+            $error = "L\'image doit être une URL http(s) valide ou un chemin local commençant par '/'.";
         } else {
             // Insertion si tout est OK
             $ok = ajouterOeuvre($titre, $artiste, $image, $description);
@@ -35,10 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    
+
     if ($success !== null) {
         echo "<div class=\"alert alert-success\">" . htmlspecialchars($success) . "</div>";
     } elseif ($error !== null) {
-        echo "<div class=\"alert alert-danger\">" . htmlspecialchars($error) . "</div>";
-    }
+    echo "<div class=\"alert alert-danger\">" . htmlspecialchars($error) . "</br>
+            <div>
+                <a href='ajouter.php'>
+                    <button class='alert alert-success'><strong>Retour au formulaire</strong></button>
+                </a>
+            </div>
+          </div>";
+}
 
 }
