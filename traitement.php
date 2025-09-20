@@ -9,7 +9,8 @@ $success = $error = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Anti-XSS basique : on retire les balises, on trim, et on borne la longueur
-    $titre = mb_substr(trim(strip_tags($_POST['titre'] ?? '')), 0, 100, 'UTF-8');    $artiste = substr(trim(strip_tags($_POST['artiste'] ?? '')), 0, 100, 'utf-8');
+    $titre = mb_substr(trim(strip_tags($_POST['titre'] ?? '')), 0, 100, 'UTF-8');    
+    $artiste = mb_substr(trim(strip_tags($_POST['artiste'] ?? '')), 0, 100, 'utf-8');
     $image = mb_substr(trim(strip_tags($_POST['image'] ?? '')), 0, 3000, 'utf-8');
     $description = mb_substr(trim(strip_tags($_POST['description'] ?? '')), 0, 3000, 'utf-8');
 
