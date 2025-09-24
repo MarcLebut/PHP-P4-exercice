@@ -10,16 +10,13 @@
 define("DBHOST", "localhost");
 
 // constante de l'utlisateur de la BDD du serveur en local => root
-
 define("DBUSER", "root");
 
 // contante pour le mot de pase de serveur en local => pas de mot de passe 
 define("DBPASS", "");
 
 // constante pour le nom de la BDD
-
 define("DBNAME", "ArtBox");
-
 
 
 function connexion()
@@ -31,7 +28,7 @@ function connexion()
 
     //Grâce à PDO on peut lever une exception (une erreur) si la connexion à la BDD ne se réalise pas(exp: suite à une faute au niveau du nom de la BDD) et par la suite si  cette erreur est capté on lui demande d'afficher une erreur
 
-    try { // dans le try on vas instancier PDO, c'est créer un objet de la classe PDO (un élment de PDO)
+    try { // dans le try on vas instancier PDO, c'est créer un objet de la classe PDO (un élément de PDO)
         // avec la variable dsn et les constantes d'environnement
 
         $pdo = new PDO($dsn, DBUSER, DBPASS);
