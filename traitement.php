@@ -43,13 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($success !== null) {
         echo "<div class=\"alert alert-success\">" . htmlspecialchars($success) . "</div>";
     } elseif ($error !== null) {
-    echo "<div class=\"alert alert-danger\">" . htmlspecialchars($error) . "</br>
-            <div>
-                <a href='ajouter.php'>
-                    <button class='alert alert-success'><strong>Retour au formulaire</strong></button>
-                </a>
-            </div>
-          </div>";
+    echo 
+    "<div class=\"alert alert-danger\">" . htmlspecialchars($error) . "</br>
+        <div>
+            <a href='ajouter.php'>
+                <button class='alert alert-success'><strong>Retour au formulaire</strong></button>
+            </a>
+        </div>
+    </div>";
 }
 
 }
