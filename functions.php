@@ -63,6 +63,7 @@ function OeuvreById($id) {
     $cnx = connexion();
     $requete = $cnx->prepare("SELECT * FROM oeuvres WHERE id_oeuvre = ?");
     $requete->execute([$id]);
+
     return $requete->fetch(PDO::FETCH_ASSOC);
 }
 
@@ -70,6 +71,7 @@ function OeuvreById($id) {
 function ajouterOeuvre($titre, $artiste, $image, $description) {
     $cnx = connexion();
     $requete = $cnx->prepare("INSERT INTO oeuvres (titre, artiste, image, description) VALUES (?, ?, ?, ?)");
+    
     return $requete->execute([$titre, $artiste, $image, $description]);
 }
 
